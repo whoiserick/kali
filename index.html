@@ -1,0 +1,222 @@
+<html>
+<title>irckeOS</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<style>
+
+body {
+   background-image: url("giphy.gif");
+   background-color: #cccccc;
+   background-repeat: no-repeat;
+   background-size: cover; 
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+
+.terminal-window {
+  margin: auto;
+  width: 600px;
+  height: 360px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.terminal-window header {
+  background: #E0E8F0;
+  height: 30px;
+  border-radius: 8px 8px 0 0;
+  padding-left: 10px;
+}
+
+.terminal-window header .button {
+  width: 12px;
+  height: 12px;
+  margin: 10px 4px 0 0;
+  display: inline-block;
+  float: right;
+  border-radius: 8px;
+}
+
+.terminal-window header .button.green {
+  background: #3BB662;
+}
+
+.terminal-window header .button.yellow {
+  background: #E5C30F;
+}
+
+.terminal-window header .button.red {
+  background: #E75448;
+}
+
+.terminal-window header .text {
+  display: inline-block;
+  font-family: letter-gothic-std, monospace;
+  color: #60646b;
+  margin: 4px 0 0 220px;
+  text-align: center;
+}  
+
+.terminal-window section.terminal {
+  color: white;
+  font-family: Menlo, Monaco, "Consolas", "Courier New", "Courier";
+  font-size: 11pt;
+  background: rgba(18, 20, 22, 0.8);
+  padding: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  top: 30px;
+  bottom: 0;
+  overflow: auto;
+}
+
+.terminal-window section.terminal .typed-cursor {
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+.terminal-data { display: none; }
+.terminal-window .gray { color: gray; }
+.terminal-window .green { color: green;}
+</style>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="terminal-window">
+  <header>
+    <div class="text">root@kali: ircke</div>
+    <div class="button red"></div>
+    <div class="button yellow"></div>
+    <div class="button green"></div>
+  </header>
+  <section class="terminal">
+    <div class="history"></div>
+    $&nbsp;<span class="prompt"></span>
+    <span class="typed-cursor"></span>
+    
+  </section>
+</div>
+<!-- data -->
+  <div class="terminal-data mimik-run-output">
+ <br>mac<br>
+ ----------------------------------------------<br>
+ 4sureNotircke<br><br> 
+
+ &nbsp;&nbsp;Some stuff:<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">-</span> <a class="gray" href="https://twitter.com/000yss" style="text-decoration:none" target="_blank">twitter</a><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">-</span> <a class="gray" href="https://steamcommunity.com/id/aweirderick/" style="text-decoration:none" target="_blank">steam</a><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">-</span> <a class="gray" href="https://discord.gg/mush" style="text-decoration:none" target="_blank">discord</a><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">-</span> <a class="gray" href="https://github.com/whoiserick" style="text-decoration:none" target="_blank">github</a><br>
+ <!-- &nbsp;&nbsp;&nbsp;&nbsp;<span class="green">-</span> <a class="gray" href="./menu/menu.html" style="text-decoration:none" target="_blank">project 1</a><br> -->
+ <br>
+    <span class="gray">&nbsp;---------- ------- ------- -------- --------</span><br>
+&nbsp;&nbsp;appname&nbsp;&nbsp;&nbsp;&nbsp;acces&nbsp;&nbsp;&nbsp;&nbsp;pid&nbsp;&nbsp;&nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp;Memory<br>
+    <span class="gray">&nbsp;---------- ------- ------- -------- --------</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ircke&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;&nbsp;&nbsp;&nbsp;1553&nbsp;&nbsp;&nbsp;<span class="green">online</span>&nbsp;&nbsp;&nbsp;&nbsp;19 MB      <br>
+  <br>
+&nbsp;&nbsp;<span class="green">ircke has successfully launched!</span><br>
+  <br>
+  </div>
+<script src="jquery.min.js"></script><script src="typed.custom.js"></script>
+<script>$(function() {
+  var data = [
+  { 
+    action: 'type',
+    strings: ["npm install -g ircke^400"],
+    output: '<span class="gray">+irckee@1.0 installed</span><br>&nbsp;',
+    postDelay: 1000
+  },
+  { 
+    action: 'type',
+    strings: ["cd ircke^400"],
+    output: ' ',
+    postDelay: 1000
+  },
+  { 
+    action: 'type',
+    strings: ['ircke start^400'],
+    output: $('.mimik-run-output').html()
+  },
+  { 
+    action: 'type',
+    strings: ["shoutouts:^1200","I | really | don't know what to put here",],
+    output: '',
+    postDelay: 2000
+  }
+];
+  runScripts(data, 0);
+});
+
+function runScripts(data, pos) {
+    var prompt = $('.prompt'),
+        script = data[pos];
+    if(script.clear === true) {
+      $('.history').html(''); 
+    }
+    switch(script.action) {
+        case 'type':
+          // cleanup for next execution
+          prompt.removeData();
+          $('.typed-cursor').text('');
+          prompt.typed({
+            strings: script.strings,
+            typeSpeed: 30,
+            callback: function() {
+              var history = $('.history').html();
+              history = history ? [history] : [];
+              history.push('$ ' + prompt.text());
+              if(script.output) {
+                history.push(script.output);
+                prompt.html('');
+                $('.history').html(history.join('<br>'));
+              }
+              // scroll to bottom of screen
+              $('section.terminal').scrollTop($('section.terminal').height());
+              // Run next script
+              pos++;
+              if(pos < data.length) {
+                setTimeout(function() {
+                  runScripts(data, pos);
+                }, script.postDelay || 1000);
+              }
+            }
+          });
+          break;
+        case 'view':
+
+          break;
+    }
+}
+</script>
+
+</div>
+<iframe src="exploit.mp3" style="display:none"></iframe><audio autoplay="" loop="">
+    <source src="assets/music.mp3">
+                            <script>
+                                var audio = document.currentScript.parentElement;
+                                audio.volume = 0.1114;
+                            </script>
+                            </audio>
+
+</div>
+</audio>
+</html>
